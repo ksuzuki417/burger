@@ -1,7 +1,7 @@
 const connection = require("../config/connection.js");
 
 const orm = {
-//Select All ORM function
+ //Select All ORM function
     selectAll: function(tableName) {
         const queryString = "SELECT * FROM ??";
         connection.query(queryString, [tableName], function(err, res) {
@@ -9,7 +9,7 @@ const orm = {
             console.log(res);
         });
     },
-//Insert One ORM function
+ //Insert One ORM function
     insertOne: function(tableName, whatToAdd, boolean, val1, val2) {
         const queryString = "INSERT INTO ?? (??, ??) VALUE ?, ?";
         console.log(queryString);
@@ -18,7 +18,7 @@ const orm = {
             console.log(res);
         });
     },
-//Update One ORM function
+ //Update One ORM function
     updateOne: function(tableName, whatToUpdate, val1, whereToUpdate, val2) {
         const queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
         console.log(queryString);
@@ -27,4 +27,6 @@ const orm = {
             console.log(res);
         });
     }
-}
+};
+
+module.exports = orm;
