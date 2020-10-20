@@ -10,19 +10,19 @@ const orm = {
         });
     },
  //Insert One ORM function
-    insertOne: function(tableName, whatToAdd, boolean, val1, val2) {
-        const queryString = "INSERT INTO ?? (??, ??) VALUE ?, ?";
+    insertOne: function(tableName, whatToAdd, val1) {
+        const queryString = "INSERT INTO ?? (??) VALUES ?";
         console.log(queryString);
-        connection.query(queryString, [tableName, whatToAdd, boolean, val1, val2], function(err, res) {
+        connection.query(queryString, [tableName, whatToAdd, val1], function(err, res) {
             if(err) throw err;
             console.log(res);
         });
     },
  //Update One ORM function
-    updateOne: function(tableName, whatToUpdate, val1, whereToUpdate, val2) {
-        const queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
+    updateOne: function(tableName, whatToUpdate, boolean, condition) {
+        const queryString = "UPDATE ?? SET ?? = ?? WHERE ?";
         console.log(queryString);
-        connection.query(queryString, [tableName, whatToUpdate, val1, whereToUpdate, val2], function(err, res) {
+        connection.query(queryString, [tableName, whatToUpdate, boolean, condition], function(err, res) {
             if(err) throw err;
             console.log(res);
         });
