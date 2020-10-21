@@ -1,1 +1,30 @@
-<h1></h1>
+<div class="jumbotron">
+  <h1 class="display-4">Eat-Da-Burger!</h1>
+  <p class="lead">Track Your Burger List!</p>
+  
+</div>
+
+<form>
+  <div class="form-group">
+    <label for="burger-name">Enter your burger name</label>
+    <input type="text" class="form-control" id="burger_name">
+  </div>
+  <button type="submit" class="btn btn-primary">Add to The List</button>
+</form>
+
+<ul>
+    {{#each burgers}}
+        {{#unless devoured}}
+            {{> burgers/burger_block devoured=true}}
+        {{/unless}}
+    {{/each}}
+</ul>
+
+
+<ul>
+    {{#each burgers}}
+        {{#if devoured}}
+            {{> burgers/burger_block devoured=false}}
+        {{/if}}
+    {{/each}}
+</ul>
