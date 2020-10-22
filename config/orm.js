@@ -1,30 +1,76 @@
-const connection = require("../config/connection.js");
+var connection = require("../config/connection.js");
 
-const orm = {
+function printQuestionMarks(num) {
+    var arr = [];
+
+    for (var i = 0; i < num; i++) {
+        arr.push("?");
+    }
+
+    return arr.toString();
+}
+
+function objToSql(ob) {
+    var arr = [];
+
+    for (var key in ob) {
+        var value = ob[key];
+        if (Object.hasOwnProperty.call(ob, key)) {
+            if (typeof value === "string" && value.indexOf(" ") >= 0) {
+                value = "'" + value + "'";
+            }
+            arr.push(key + "=" + value);
+        }
+    }
+    return arr.toString();
+}
+
+var orm = {
  //Select All ORM function
     selectAll: function(tableName) {
-        const queryString = "SELECT * FROM ??";
+        var queryString = "SELECT * FROM ??";
         connection.query(queryString, [tableName], function(err, res) {
             if(err) throw err;
             console.log(res);
         });
     },
  //Insert One ORM function
-    insertOne: function(tableName, whatToAdd, val1) {
-        const queryString = "INSERT INTO ?? (??) VALUES ?";
+    insertOne: function(tableName, whatToAdd, val1, cb) {
+        var queryString = "INSERT INTO " + tableName;
+        
+        queryString += " (";
+        queryString += whatToAdd.toString();
+        queryString += ") ";
+        queryString += "VALUES (";
+        queryString += printQuestionMarks(vals.length);
+        queryString += ") ";
+
         console.log(queryString);
-        connection.query(queryString, [tableName, whatToAdd, val1], function(err, res) {
-            if(err) throw err;
-            console.log(res);
+
+        connection.query(queryString, val1, function(err, res) {
+            if(err) {
+                throw err;
+            }
+            
+            cb(result);
         });
     },
  //Update One ORM function
-    updateOne: function(tableName, whatToUpdate, boolean, condition) {
-        const queryString = "UPDATE ?? SET ?? = ?? WHERE ?";
+    updateOne: function(tableName, whatToUpdate, condition, cb) {
+        var queryString = "UPDATE " + tableName;
+
+        queryString += " SET ";
+        queryString += objToSql(whatToUpdate);
+        queryString += " WHERE ";
+        queryString += condition;
+
         console.log(queryString);
-        connection.query(queryString, [tableName, whatToUpdate, boolean, condition], function(err, res) {
-            if(err) throw err;
-            console.log(res);
+        connection.query(queryString, function(err, res) {
+            if(err) {
+                throw err;
+            }
+            
+            cb(result);
         });
     }
 };
