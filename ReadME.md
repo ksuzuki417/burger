@@ -19,7 +19,7 @@
   ## Usage
    
 
-  <img src="/burger_screenshot">, <img src="/burger_blank_browser"> 
+  <img src="/assets/burger_screenshot.png">, <img src="/assets/burger_blank_browser.png"> 
  
   [Click Here for a Demo]()
 
